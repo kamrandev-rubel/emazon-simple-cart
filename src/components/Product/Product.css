@@ -51,7 +51,12 @@
     padding: 8px;
     position: absolute;
     bottom: 0;
-    /* font-size: 15px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-cart .btn-text{
+    margin-right: 7px;
 }
 .btn-cart:hover{
     background-color: rgba(255, 166, 0, 0.829);
