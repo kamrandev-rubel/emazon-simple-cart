@@ -3,7 +3,7 @@ import './Cart.css'
 
 const Cart = ({ cart }) => {
     /*
-     let total = 0;
+    let total = 0;
     let shipping = 0;
     for (const product of cart) {
         total = total + product.price;
@@ -12,7 +12,7 @@ const Cart = ({ cart }) => {
     */
     const total = cart.reduce((previous, current) => {
         return previous + current.price
-    },0)
+    }, 0)
     const shipping = cart.reduce((previous, current) => {
         return previous + current.shipping
     }, 0)
