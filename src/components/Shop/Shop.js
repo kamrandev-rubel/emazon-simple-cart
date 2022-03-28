@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { addToDb, getStoreCart } from '../../utilities/fakedb';
+import { addToDb } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css'
@@ -13,23 +13,39 @@ const Shop = () => {
     }, [])
 
     useEffect(() => {
-        const storedCart = getStoreCart()
-        const saveCart = []
-        for (const id in storedCart) {
-            const addedProduct = products.find(product => product.id === id)
-            if (addedProduct) {
-                const quantity = storedCart[id]
-                addedProduct.quantity = quantity;
-                saveCart.push(addedProduct)
+        const storedCartData = localStorage.getItem('shopping-cart')
+        let storedCart;
+        if (storedCartData) {
+            storedCart = JSON.parse(storedCartData)  
+        } else {
+            storedCart = {}
+        }
+        
+        const savedCart = []
+        for (const id in storedCart){
+            const addCartData = products.find(i => i.id === id);
+            if (addCartData) {
+                addCartData.quantity = storedCart[id]
+                savedCart.push(addCartData)
             }
         }
-        setCart(saveCart)
+        setCart(savedCart)
     }, [products])
 
-    const addHandleCart = (product) => {
-        const newcart = [...cart, product]
-        setCart(newcart)
-        addToDb(product.id)
+    const addHandleCart = (selectedProduct) => {
+        let newCart;
+        const exists = cart.find(i => i.id = selectedProduct.id)
+        if (exists) {
+            const rest = cart.filter(i => i.id !== exists.id)
+            exists.quantity = exists.quantity + 1;
+            newCart=[...rest, exists]
+        } else {
+            selectedProduct.quantity=1
+            newCart = [...cart, selectedProduct]
+        }
+
+        setCart(newCart)
+        addToDb(selectedProduct.id)
     }
     return (
         <div className='shop-container'>
