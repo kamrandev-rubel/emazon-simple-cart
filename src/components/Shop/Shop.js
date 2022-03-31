@@ -16,13 +16,13 @@ const Shop = () => {
         const storedCartData = localStorage.getItem('shopping-cart')
         let storedCart;
         if (storedCartData) {
-            storedCart = JSON.parse(storedCartData)  
+            storedCart = JSON.parse(storedCartData)
         } else {
             storedCart = {}
         }
-        
+
         const savedCart = []
-        for (const id in storedCart){
+        for (const id in storedCart) {
             const addCartData = products.find(i => i.id === id);
             if (addCartData) {
                 addCartData.quantity = storedCart[id]
@@ -35,7 +35,15 @@ const Shop = () => {
     const addHandleCart = (selectedProduct) => {
         let newCart;
         const exists = cart.find(i => i.id === selectedProduct.id)
-       
+        if (exists) {
+            const rest = cart.filter(i => i.id !== exists.id)
+            exists.quantity = exists.quantity + 1;
+            newCart = [...rest, exists]
+        } else {
+            selectedProduct.quantity = 1
+            newCart = [...cart, selectedProduct]
+        }
+
         setCart(newCart)
         addToDb(selectedProduct.id)
     }
