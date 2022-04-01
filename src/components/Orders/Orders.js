@@ -2,6 +2,7 @@ import { faHourglass1 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import useCart from '../../Hooks/useCart';
 import useProducts from '../../Hooks/useProducts';
+import { removeFromDb } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
 
@@ -13,6 +14,7 @@ const Orders = () => {
         // const exists = cart.find(product => product.id === id)
         const newCart = cart.filter(product => product.id !== id.id)
         setCart(newCart)
+        removeFromDb(id.id)
     }
     return (
         <div className='shop-container'>
