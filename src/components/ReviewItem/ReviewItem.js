@@ -15,6 +15,7 @@ const ReviewItem = ({ product, handleRemoveProduct }) => {
                     <h2 title={name}>{name.length > 20 ? name.slice(0,20)+ '...': name}</h2>
                     <p>Price: <span className='orange-color'>{price}</span></p>
                     <p>Shipping: <span className='orange-color'>{shipping}</span></p>
+                    <p>Quantity: <span className='orange-color'>{quantity}</span></p>
                 </div>
                 <div className='review-delete'>
                     <button

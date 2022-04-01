@@ -1,10 +1,10 @@
-import { faHourglass1 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import useCart from '../../Hooks/useCart';
 import useProducts from '../../Hooks/useProducts';
 import { removeFromDb } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import './Orders.css'
 
 const Orders = () => {
     const [products, setProducts] = useProducts()
@@ -28,7 +28,9 @@ const Orders = () => {
                 }
             </div>
             <div className="cart-container">
-                <Cart cart={cart} />
+                <Cart cart={cart} >
+                    <button className='checkout-btn'>Proceed Checkout</button>
+                </Cart>
             </div>
         </div>
     );
