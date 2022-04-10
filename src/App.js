@@ -11,7 +11,7 @@ import SignUp from './components/SignUp/SignUp';
 function App() {
   return (
     <div>
-      <Header></Header>
+      <Header/>
       <Routes>
         <Route path='/' element={<Shop/>} />
         <Route path='/shop' element={<Shop />} />
