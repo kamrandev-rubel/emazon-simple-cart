@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import googleImage from '../../images/google.svg'
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
@@ -40,7 +39,9 @@ const SignUp = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
+                if (user) {
+                    navigate('/login')
+                }
             })
             .catch((error) => {
                 setError('This email already in use')
