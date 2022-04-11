@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import googleImage from '../../images/google.svg'
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
 
 
 
@@ -13,9 +14,9 @@ const SignUp = () => {
     const [error, setError] = useState('')
     const navigate = useNavigate()
 
-    // const [createUserWithEmailAndPassword, user,] = useCreateUserWithEmailAndPassword(auth);
+    const [createUserWithEmailAndPassword, user,] = useCreateUserWithEmailAndPassword(auth);
 
-    
+
     const handleEmailBlur = e => {
         setEmail(e.target.value);
     }
@@ -36,16 +37,10 @@ const SignUp = () => {
             return
         }
         setError('')
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                if (user) {
-                    navigate('/login')
-                }
-            })
-            .catch((error) => {
-                setError('This email already in use')
-            });
+        createUserWithEmailAndPassword(email, password)
+    }
+    if (user) {
+        navigate('/login')
     }
     return (
         <div className='form-container'>
