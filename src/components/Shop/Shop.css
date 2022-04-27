@@ -23,3 +23,12 @@
     padding: 15px;
     border: 1px solid orange;
 }
+
+.pagination .selected{
+    background-color: orange;
+    color: #fff;
+}
+.pagination .size{
+    padding: 9px  0;
+    font-size: 20px;
+}

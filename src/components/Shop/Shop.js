@@ -7,9 +7,17 @@ import Cart from "../Cart/Cart";
 import Product from "../Product/Product";
 import "./Shop.css";
 const Shop = () => {
-  const [products, setProducts] = useProducts();
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useCart(products);
   const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(10);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/product")
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
 
   useEffect(() => {
     fetch("http://localhost:5000/productCount")
@@ -62,8 +70,22 @@ const Shop = () => {
         </div>
         <div className="pagination">
           {[...Array(pageCount).keys()].map((number) => (
-            <button>{number}</button>
+            <button
+              key={number}
+              onClick={() => setPage(number)}
+              className={page === number ? "selected" : ""}
+            >
+              {number}
+            </button>
           ))}
+          <select className="size" onChange={(e) => setSize(e.target.value)}>
+            <option defaultValue="5">5</option>
+            <option selected defaultValue="10">
+              10
+            </option>
+            <option defaultValue="15">15</option>
+            <option defaultValue="20">20</option>
+          </select>
         </div>
       </div>
       <div className="cart-container">
