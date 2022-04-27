@@ -8,16 +8,16 @@ import Product from "../Product/Product";
 import "./Shop.css";
 const Shop = () => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useCart(products);
+  const [cart, setCart] = useCart();
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
 
   useEffect(() => {
-    fetch("http://localhost:5000/product")
+    fetch(`http://localhost:5000/product?page=${page}&size=${size}`)
       .then((res) => res.json())
       .then((data) => setProducts(data));
-  }, []);
+  }, [page, size]);
 
   useEffect(() => {
     fetch("http://localhost:5000/productCount")

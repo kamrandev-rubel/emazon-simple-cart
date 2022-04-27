@@ -11,6 +11,7 @@ const Orders = () => {
   const [products, setProducts] = useProducts();
   const [cart, setCart] = useCart(products);
   const navigate = useNavigate();
+  console.log(cart);
 
   const handleRemoveProduct = (id) => {
     // const exists = cart.find(product => product._id === id)
